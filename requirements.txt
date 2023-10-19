@@ -1,0 +1,8 @@
+datasets
+evaluate
+torch
+accelerate
+transformers
+tqdm
+huggingface-hub
+scikit-learn
