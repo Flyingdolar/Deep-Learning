@@ -264,7 +264,7 @@ class DataCollatorForMultipleChoice:
     # TODO: Change some rules here
     tokenizer: PreTrainedTokenizerBase
     padding: Union[bool, str, PaddingStrategy] = True
-    max_length: Optional[int] = 128
+    max_length: Optional[int] = 64
     pad_to_multiple_of: Optional[int] = 8
 
     def __call__(self, features):
@@ -297,6 +297,7 @@ class DataCollatorForMultipleChoice:
 def main():
     args = parse_args()  # 解析使用者輸入的參數
     send_example_telemetry("run_swag_no_trainer", args)  # 遙測，用於追蹤訓練過程
+    os.environ["CUDA_LAUNCH_BLOCKING"] = "1"  # 避免 CUDA out of memory
 
     accelerator_log_kwargs = {}  # 輸出設定
     if args.with_tracking:  # 如果使用者要追蹤訓練過程

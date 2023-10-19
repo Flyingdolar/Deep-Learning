@@ -28,7 +28,7 @@ output = append
 for idx in range(len(append)):
     for pdx in range(4):
         if append[idx]["paragraphs"][pdx] == append[idx]["relevant"]:
-            output[idx]["paragraphs"][pdx] = pdx
+            output[idx]["relevant"] = pdx
 
 # Fill the missing values
 for idx in range(len(append)):
@@ -38,4 +38,4 @@ for idx in range(len(append)):
 
 # Write the result to the file 'Output'
 with open(args.output, "w", encoding="UTF-8") as f:
-    json.dump(output, f, ensure_ascii=False)
+    json.dump(output, f, sort_keys=True, indent=4, ensure_ascii=False)
