@@ -71,13 +71,13 @@ def parse_args():
     parser.add_argument(  # TODO: SET
         "--train_file",
         type=str,
-        default="data/train.json",
+        default="data/newTrain.json",
         help="A csv or a json file containing the training data.",
     )
     parser.add_argument(  # TODO: SET
         "--validation_file",
         type=str,
-        default="data/valid.json",
+        default="data/newValid.json",
         help="A csv or a json file containing the validation data.",
     )
     parser.add_argument(
@@ -121,13 +121,13 @@ def parse_args():
     parser.add_argument(
         "--per_device_train_batch_size",
         type=int,
-        default=1,  # SET
+        default=8,  # SET
         help="Batch size (per device) for the training dataloader.",
     )
     parser.add_argument(
         "--per_device_eval_batch_size",
         type=int,
-        default=1,  # SET
+        default=8,  # SET
         help="Batch size (per device) for the evaluation dataloader.",
     )
     parser.add_argument(
@@ -438,10 +438,10 @@ def main():
             for idx in range(len(examples[context_name]))
         ]
         labels = examples[label_name]
-        # for idx in range(len(examples[context_name])):
-        #     for jdx in range(4):
-        #         if labels[idx] == examples[ending_name][idx][jdx]:
-        #             labels[idx] = tuple([jdx, jdx])
+        for idx in range(len(examples[context_name])):
+            for jdx in range(4):
+                if labels[idx] == examples[ending_name][idx][jdx]:
+                    labels[idx] = jdx
 
         # # Flatten out
         first_sentences = list(chain(*first_sentences))
