@@ -46,6 +46,11 @@ for idx in range(len(append)):
     output[idx]["answer"]["text"] = [output[idx]["answer"]["text"]]
     output[idx]["answer"]["start"] = [output[idx]["answer"]["start"]]
 
+# Change the column name answer to answer_start
+for idx in range(len(append)):
+    output[idx]["answer"]["answer_start"] = output[idx]["answer"]["start"]
+    del output[idx]["answer"]["start"]
+
 # Write the result to the file 'Output'
 with open(args.output, "w", encoding="UTF-8") as f:
     json.dump(output, f, sort_keys=True, indent=4, ensure_ascii=False)

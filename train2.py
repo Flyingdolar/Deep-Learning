@@ -206,7 +206,7 @@ def parse_args():
     parser.add_argument(
         "--num_train_epochs",
         type=int,
-        default=3,
+        default=1,
         help="Total number of training epochs to perform.",
     )
     parser.add_argument(
@@ -550,9 +550,9 @@ def main():
 
     column_names = raw_datasets["train"].column_names
 
-    question_column_name = "question" if "question" in column_names else column_names[2]
-    context_column_name = "context" if "context" in column_names else column_names[3]
-    answer_column_name = "answers" if "answers" in column_names else column_names[4]
+    question_column_name = "question"
+    context_column_name = "relevant"
+    answer_column_name = "answer"
 
     # Padding side determines if we do (question|context) or (context|question).
     pad_on_right = tokenizer.padding_side == "right"
@@ -611,12 +611,12 @@ def main():
             sample_index = sample_mapping[i]
             answers = examples[answer_column_name][sample_index]
             # If no answers are given, set the cls_index as answer.
-            if len(answers["start"]) == 0:
+            if len(answers["answer_start"]) == 0:
                 tokenized_examples["start_positions"].append(cls_index)
                 tokenized_examples["end_positions"].append(cls_index)
             else:
                 # Start/end character index of the answer in the text.
-                start_char = answers["start"][0]
+                start_char = answers["answer_start"][0]
                 end_char = start_char + len(answers["text"][0])
 
                 # Start token index of the current span in the text.
