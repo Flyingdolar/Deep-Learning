@@ -36,6 +36,16 @@ for idx in range(len(append)):
         num = output[idx]["paragraphs"][pdx]
         output[idx]["paragraphs"][pdx] = fill[num]
 
+# Change relevant index to relevant answer
+for idx in range(len(append)):
+        num =  output[idx]["relevant"]
+        output[idx]["relevant"] =output[idx]["paragraphs"][num]
+
+# Change Answer to list
+for idx in range(len(append)):
+    output[idx]["answer"]["text"] = [output[idx]["answer"]["text"]]
+    output[idx]["answer"]["start"] = [output[idx]["answer"]["start"]]
+
 # Write the result to the file 'Output'
 with open(args.output, "w", encoding="UTF-8") as f:
     json.dump(output, f, sort_keys=True, indent=4, ensure_ascii=False)
