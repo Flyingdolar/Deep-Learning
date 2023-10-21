@@ -71,19 +71,19 @@ def parse_args():
     parser.add_argument(  # TODO: SET
         "--train_file",
         type=str,
-        default="data/newTrain.json",
+        default="data/trainMC.json",
         help="A csv or a json file containing the training data.",
     )
     parser.add_argument(  # TODO: SET
         "--validation_file",
         type=str,
-        default="data/newValid.json",
+        default="data/validMC.json",
         help="A csv or a json file containing the validation data.",
     )
     parser.add_argument(
         "--max_seq_length",
         type=int,
-        default=128,  # SET
+        default=512,  # TODO: SET
         help=(
             "The maximum total input sequence length after tokenization. Sequences longer than this will be truncated,"
             " sequences shorter will be padded if `--pad_to_max_lengh` is passed."
@@ -121,19 +121,19 @@ def parse_args():
     parser.add_argument(
         "--per_device_train_batch_size",
         type=int,
-        default=8,  # SET
+        default=8,  # TODO: SET
         help="Batch size (per device) for the training dataloader.",
     )
     parser.add_argument(
         "--per_device_eval_batch_size",
         type=int,
-        default=8,  # SET
+        default=8,  # TODO: SET
         help="Batch size (per device) for the evaluation dataloader.",
     )
     parser.add_argument(
         "--learning_rate",
         type=float,
-        default=3e-5,  # SET
+        default=3e-5,  # TODO: SET
         help="Initial learning rate (after the potential warmup period) to use.",
     )
     parser.add_argument(
@@ -142,7 +142,7 @@ def parse_args():
     parser.add_argument(
         "--num_train_epochs",
         type=int,
-        default=3,
+        default=1,
         help="Total number of training epochs to perform.",
     )
     parser.add_argument(
@@ -180,7 +180,7 @@ def parse_args():
     parser.add_argument(
         "--output_dir",
         type=str,
-        default="model",  # SET
+        default="models/MultiChoice",  # TODO: SET
         help="Where to store the final model.",
     )
     parser.add_argument(
@@ -373,9 +373,9 @@ def main():
         column_names = raw_datasets["validation"].column_names
 
     # TODO: 6. 命名資料集索引名稱
-    ending_name = "paragraphs"
-    context_name = "question"
-    label_name = "relevant"
+    ending_name = "sent2"
+    context_name = "sent1"
+    label_name = "label"
 
     # 7. 設定 Config
     if args.config_name:  # 使用並從 HuggingFace Hub 下載指定的 config
@@ -439,10 +439,6 @@ def main():
             for idx in range(len(examples[context_name]))
         ]
         labels = examples[label_name]
-        for idx in range(len(examples[context_name])):
-            for jdx in range(4):
-                if labels[idx] == examples[ending_name][idx][jdx]:
-                    labels[idx] = jdx
 
         # # Flatten out
         first_sentences = list(chain(*first_sentences))

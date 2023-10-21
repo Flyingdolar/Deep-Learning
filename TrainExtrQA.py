@@ -118,7 +118,7 @@ def parse_args():
     parser.add_argument(
         "--train_file",
         type=str,
-        default="data/newTrain.json",
+        default="data/trainQA.json",  # TODO: SET
         help="A csv or a json file containing the training data.",
     )
     parser.add_argument(
@@ -135,7 +135,7 @@ def parse_args():
     parser.add_argument(
         "--validation_file",
         type=str,
-        default="data/newValid.json",
+        default="data/validQA.json",  # TODO: SET
         help="A csv or a json file containing the validation data.",
     )
     parser.add_argument(
@@ -147,7 +147,7 @@ def parse_args():
     parser.add_argument(
         "--max_seq_length",
         type=int,
-        default=384,
+        default=512,
         help=(
             "The maximum total input sequence length after tokenization. Sequences longer than this will be truncated,"
             " sequences shorter will be padded if `--pad_to_max_lengh` is passed."
@@ -197,7 +197,7 @@ def parse_args():
     parser.add_argument(
         "--learning_rate",
         type=float,
-        default=3e-5,
+        default=3e-5,  # TODO: SET
         help="Initial learning rate (after the potential warmup period) to use.",
     )
     parser.add_argument(
@@ -206,7 +206,7 @@ def parse_args():
     parser.add_argument(
         "--num_train_epochs",
         type=int,
-        default=1,
+        default=1,  # TODO: SET
         help="Total number of training epochs to perform.",
     )
     parser.add_argument(
@@ -244,7 +244,7 @@ def parse_args():
     parser.add_argument(
         "--output_dir",
         type=str,
-        default="model2",
+        default="models/ExtrQA",  # TODO: SET
         help="Where to store the final model.",
     )
     parser.add_argument(
@@ -280,7 +280,7 @@ def parse_args():
     parser.add_argument(
         "--max_answer_length",
         type=int,
-        default=512,
+        default=512,    # TODO: SET
         help=(
             "The maximum length of an answer that can be generated. This is needed because the start "
             "and end predictions are not conditioned on one another."
@@ -551,7 +551,7 @@ def main():
     column_names = raw_datasets["train"].column_names
 
     question_column_name = "question"
-    context_column_name = "relevant"
+    context_column_name = "context"
     answer_column_name = "answer"
 
     # Padding side determines if we do (question|context) or (context|question).
